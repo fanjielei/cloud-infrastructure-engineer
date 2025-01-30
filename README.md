@@ -20,7 +20,7 @@ We want you to create a monitoring app that will send requests to our web server
 ## Tasks
 
 - [ ] Inspect the Go code and get a rough understanding of how the server works
-- [ ] Use Docker to build and start the server
+- [ ] Use Docker to build and start the server: `docker build -f cmd/server/Dockerfile .`
 - [ ] Create a `docker-compose.yml` file to orchestrate the services you will create
 - [ ] Create a client program in a language of your choice
 - [ ] Your client should run periodic requests against the status endpoint and report:
