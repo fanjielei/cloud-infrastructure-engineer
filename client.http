@@ -1,0 +1,126 @@
+###
+GET http://localhost:8080/status
+###
+POST http://localhost:8080/flaky
+### 
+POST http://localhost:8080/status/100
+###
+POST http://localhost:8080/status/101
+###
+POST http://localhost:8080/status/102
+###
+POST http://localhost:8080/status/103
+###
+POST http://localhost:8080/status/200
+###
+POST http://localhost:8080/status/201
+###
+POST http://localhost:8080/status/202
+###
+POST http://localhost:8080/status/203
+###
+POST http://localhost:8080/status/204
+###
+POST http://localhost:8080/status/205
+###
+POST http://localhost:8080/status/206
+###
+POST http://localhost:8080/status/207
+###
+POST http://localhost:8080/status/208
+###
+POST http://localhost:8080/status/226
+###
+POST http://localhost:8080/status/300
+###
+POST http://localhost:8080/status/301
+###
+POST http://localhost:8080/status/302
+###
+POST http://localhost:8080/status/303
+###
+POST http://localhost:8080/status/304
+###
+POST http://localhost:8080/status/305
+###
+POST http://localhost:8080/status/307
+###
+POST http://localhost:8080/status/308
+###
+POST http://localhost:8080/status/400
+###
+POST http://localhost:8080/status/401
+###
+POST http://localhost:8080/status/402
+###
+POST http://localhost:8080/status/403
+###
+POST http://localhost:8080/status/404
+###
+POST http://localhost:8080/status/405
+###
+POST http://localhost:8080/status/406
+###
+POST http://localhost:8080/status/407
+###
+POST http://localhost:8080/status/408
+###
+POST http://localhost:8080/status/409
+###
+POST http://localhost:8080/status/410
+###
+POST http://localhost:8080/status/411
+###
+POST http://localhost:8080/status/412
+###
+POST http://localhost:8080/status/413
+###
+POST http://localhost:8080/status/414
+###
+POST http://localhost:8080/status/415
+###
+POST http://localhost:8080/status/416
+###
+POST http://localhost:8080/status/417
+###
+POST http://localhost:8080/status/418
+###
+POST http://localhost:8080/status/421
+###
+POST http://localhost:8080/status/422
+###
+POST http://localhost:8080/status/423
+###
+POST http://localhost:8080/status/424
+###
+POST http://localhost:8080/status/426
+###
+POST http://localhost:8080/status/428
+###
+POST http://localhost:8080/status/429
+###
+POST http://localhost:8080/status/431
+###
+POST http://localhost:8080/status/451
+###
+POST http://localhost:8080/status/500
+###
+POST http://localhost:8080/status/501
+###
+POST http://localhost:8080/status/502
+###
+POST http://localhost:8080/status/503
+###
+POST http://localhost:8080/status/504
+###
+POST http://localhost:8080/status/505
+###
+POST http://localhost:8080/status/506
+###
+POST http://localhost:8080/status/507
+###
+POST http://localhost:8080/status/508
+###
+POST http://localhost:8080/status/510
+###
+POST http://localhost:8080/status/511
