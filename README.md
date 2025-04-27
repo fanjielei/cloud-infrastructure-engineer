@@ -19,16 +19,36 @@ We want you to create a monitoring app that will send requests to our web server
 
 ## Tasks
 
-- [ ] Inspect the Go code and get a rough understanding of how the server works
-- [ ] Use Docker to build and start the server: `docker build -f cmd/server/Dockerfile .`
-- [ ] Create a `docker-compose.yml` file to orchestrate the services you will create
-- [ ] Create a client program in a language of your choice
-- [ ] Your client should run periodic requests against the status endpoint and report:
+- [x] Inspect the Go code and get a rough understanding of how the server works
+
+> `post /flaky` to switch `flaky` on/off
+
+> if `flaky` it `ture`, `get /status` will get a reponse with a random status code in randomly respond time less than 500 milisecond
+
+- [X] Use Docker to build and start the server: `docker build -f cmd/server/Dockerfile .`
+
+> I update the Dockerfile to generate an image with smaller image size
+
+- [X] Create a `docker-compose.yml` file to orchestrate the services you will create
+- [X] Create a client program in a language of your choice
+
+> file: `cmd/client/main.go`
+
+> run it: `go run cmd/client/main.go`
+
+- [X] Your client should run periodic requests against the status endpoint and report:
   - Which endpoint it talked to
   - How long the request took
   - If the request was successful
   - Any errors it encountered
-- [ ] Your client should periodically tell the server to change the response via the dedicated endpoint
+
+> see stdout of `go run cmd/client/main.go`
+
+- [X] Your client should periodically tell the server to change the response via the dedicated endpoint
+> implement it in the client.go
+
+> I switch on `flaky`, then for each `get /status`, the server will change the response. Is this what this question want?
+
 - [ ] Add Prometheus and scrape the server's metrics endpoint
 
 ## Optional tasks
