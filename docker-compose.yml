@@ -1,0 +1,15 @@
+services:
+  server:
+    build:
+      context: .
+      dockerfile: cmd/server/Dockerfile
+    image: server:v0.0.1
+    ports:
+      - "8080:8080"
+      - "9090:9090"
+    restart: unless-stopped
+    user: "user:group"
+  otel-selector:
+    image: otel/opentelemetry-collector:0.123.0
+    ports:
+      - "4318"
