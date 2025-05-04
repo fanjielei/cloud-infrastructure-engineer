@@ -11,9 +11,9 @@ import (
 )
 
 func main() {
-	endpoint := "http://localhost:8080/status"
 
-	interval := 5 * time.Second
+	intervalStatus := 3 * time.Second
+	intervalFlaky := 10 * time.Second
 	timeout := 5 * time.Second
 
 	// create HTTP client with timeout
@@ -21,26 +21,28 @@ func main() {
 		Timeout: timeout,
 	}
 
-	fmt.Printf("set flasy to be true\n\n")
-	client.Post("http://localhost:8080/flaky", "json", nil)
+	flaky_endpoint := fmt.Sprintf("http://%s:%s/flaky", os.Getenv("HOST"), os.Getenv("PORT"))
 
 	sigChan := make(chan os.Signal, 1)
 	signal.Notify(sigChan, syscall.SIGINT, syscall.SIGTERM)
 
-	fmt.Printf("Starting status monitoring for endpoint: %s\nChecking every %s with %s timeout\n", endpoint, interval, timeout)
 	fmt.Println("Press Ctrl+C to exit")
 
-	// setup a ticker
-	ticker := time.NewTicker(interval)
-	defer ticker.Stop()
+	// setup tickers
+	tickerStatus := time.NewTicker(intervalStatus)
+	defer tickerStatus.Stop()
+	tickerFlaky := time.NewTicker(intervalFlaky)
+	defer tickerFlaky.Stop()
 
-	checkStatus(client, endpoint)
+	status_endpoint := fmt.Sprintf("http://%s:%s/status", os.Getenv("HOST"), os.Getenv("PORT"))
 
 	// main loop
 	for {
 		select {
-		case <-ticker.C:
-			checkStatus(client, endpoint)
+		case <-tickerStatus.C:
+			getStatus(client, status_endpoint)
+		case <-tickerFlaky.C:
+			postFlaky(client, flaky_endpoint)
 		case sig := <-sigChan:
 			fmt.Printf("\nReceived signal %v, shutting down...\n", sig)
 			return
@@ -48,7 +50,7 @@ func main() {
 	}
 }
 
-func checkStatus(client *http.Client, endpoint string) {
+func getStatus(client *http.Client, endpoint string) {
 	fmt.Printf("\n[%s] Checking endpoint: %s\n", time.Now().Format(time.RFC3339), endpoint)
 
 	// measure request duration
@@ -83,4 +85,24 @@ func checkStatus(client *http.Client, endpoint string) {
 	fmt.Printf("  Success: %t\n", success)
 	fmt.Printf("  Status Code: %d\n", resp.StatusCode)
 	fmt.Printf("  Response: %s\n", body)
+}
+
+func postFlaky(client *http.Client, endpoint string) {
+	fmt.Printf("switch flaky on/off\n")
+
+	resp, err := client.Post(endpoint, "application/json", nil)
+	if err != nil {
+		fmt.Printf("Request Error: %v", err)
+		return
+	}
+	defer resp.Body.Close()
+
+	// check post response
+	if resp.StatusCode != http.StatusAccepted {
+		fmt.Printf("StatusCode: %d", resp.StatusCode)
+		return
+	}
+	body, _ := io.ReadAll(resp.Body)
+
+	fmt.Println(string(body))
 }
