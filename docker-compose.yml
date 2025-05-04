@@ -14,9 +14,9 @@ services:
       dockerfile: cmd/server/Dockerfile
     image: server:v0.0.1
     container_name: server
-    # ports:
-    #   - "8080"
-    #   - "9090"
+    ports:
+      - "8080:8080"
+      - "9090"
     restart: unless-stopped
     user: "user:group"
 
