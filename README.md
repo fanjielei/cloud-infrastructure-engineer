@@ -19,10 +19,9 @@ We want you to create a monitoring app that will send requests to our web server
 
 ## Tasks
 
-- [x] Inspect the Go code and get a rough understanding of how the server works
+- [X] Inspect the Go code and get a rough understanding of how the server works
 
-> `post /flaky` to switch `flaky` on/off
-
+> `post /flaky` to switch `flaky` on/off \
 > if `flaky` it `ture`, `get /status` will get a reponse with a random status code in randomly respond time less than 500 milisecond
 
 - [X] Use Docker to build and start the server: `docker build -f cmd/server/Dockerfile .`
@@ -32,9 +31,8 @@ We want you to create a monitoring app that will send requests to our web server
 - [X] Create a `docker-compose.yml` file to orchestrate the services you will create
 - [X] Create a client program in a language of your choice
 
-> file: `cmd/client/main.go`
-
-> run it: `go run cmd/client/main.go`
+> main.go: `cmd/client/main.go`\
+> Dockerfile: `cmd/client/Dockerfile` 
 
 - [X] Your client should run periodic requests against the status endpoint and report:
   - Which endpoint it talked to
@@ -42,14 +40,16 @@ We want you to create a monitoring app that will send requests to our web server
   - If the request was successful
   - Any errors it encountered
 
-> see stdout of `go run cmd/client/main.go`
+> option1: `go run cmd/client/main.go` with the setup of env HOST,PORT on local \
+> option2: see the log of container client, which is up by `docker compose up -d`
 
 - [X] Your client should periodically tell the server to change the response via the dedicated endpoint
-> implement it in the client.go
+> implement it in the client.go \
+> `post /flaky` every 10 seconds, `get /status` every 3 seconds
 
-> I switch on `flaky`, then for each `get /status`, the server will change the response. Is this what this question want?
+- [X] Add Prometheus and scrape the server's metrics endpoint
+> add prometheus service in docker-compose.yml
 
-- [ ] Add Prometheus and scrape the server's metrics endpoint
 
 ## Optional tasks
 
