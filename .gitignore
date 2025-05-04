@@ -1,0 +1,68 @@
+#
+*.bak
+
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Dependency directories (remove the comment below to include it)
+# vendor/
+
+# Go workspace file
+go.work
+
+# Binary folder
+bin/
+pkg/
+
+# IDE specific files
+.idea/
+.vscode/
+*.sublime-workspace
+*.sublime-project
+.atom/
+.eclipse/
+.settings/
+
+# Compile daemon for hot reload
+.realize.yaml
+
+# Environment variables file
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Log files
+*.log
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Debug files
+debug
+
+# Go Module local cache
+.gocache/
+
+# Project-local glide cache
+.glide/
+
+# Temporary files
+tmp/
+temp/
