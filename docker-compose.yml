@@ -1,15 +1,53 @@
 services:
+  client:
+    build:
+      context: .
+      dockerfile: cmd/client/Dockerfile
+    image: client:v0.0.1
+    container_name: client
+    restart: unless-stopped
+    user: "user:group"
+
   server:
     build:
       context: .
       dockerfile: cmd/server/Dockerfile
     image: server:v0.0.1
-    ports:
-      - "8080:8080"
-      - "9090:9090"
+    container_name: server
+    # ports:
+    #   - "8080"
+    #   - "9090"
     restart: unless-stopped
     user: "user:group"
-  otel-selector:
-    image: otel/opentelemetry-collector:0.123.0
+
+  prometheus:
+    image: bitnami/prometheus:latest
+    container_name: prometheus
     ports:
-      - "4318"
+      - "9090:9090"
+    volumes:
+      - prometheus_data:/opt/bitnami/prometheus/data
+      - ./prometheus/prometheus.yml:/opt/bitnami/prometheus/conf/prometheus.yml
+    environment:
+      - PROMETHEUS_CONFIG_FILE=/opt/bitnami/prometheus/conf/prometheus.yml
+    depends_on:
+      - server
+    restart: unless-stopped
+
+  # otel-selector:
+  #   image: otel/opentelemetry-collector:0.123.0
+  #   container_name: otel-selector
+  #   ports:
+  #     - "4318"
+
+  # netshoot:
+  #   image: nicolaka/netshoot
+  #   container_name: netshoot
+  #   command:
+  #     - "tail"
+  #     - "-f"
+  #     - "/dev/null"
+volumes:
+  prometheus_data:
+    driver: local
+
